@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.5)
+project(iglo)
+find_package(SDL2 CONFIG REQUIRED)
+FILE(GLOB source "iglo/*.hpp" "iglo/*.cpp")
+add_library(iglo STATIC ${source})
+target_link_libraries(iglo PRIVATE SDL2::SDL2)
