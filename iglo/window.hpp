@@ -18,6 +18,7 @@ struct SdlWindow {
 };
 
 SdlWindow makeFullScreenWindow(int width, int height, const char* window_title);
+SdlWindow makeDesktopWindow(int width, int height, int scale, const char* window_title);
 void destroyWindow(SdlWindow window);
 void presentWindow(SdlWindow window);
 void drawPixels(SdlWindow window, const uint32_t* pixels_argb);

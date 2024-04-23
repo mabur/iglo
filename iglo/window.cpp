@@ -60,6 +60,37 @@ SdlWindow makeFullScreenWindow(int width, int height, const char* window_title) 
     };
 }
 
+SdlWindow makeDesktopWindow(int width, int height, int scale, const char* window_title) {
+    const auto window = SDL_CreateWindow(
+        window_title,
+        SDL_WINDOWPOS_CENTERED,
+        SDL_WINDOWPOS_CENTERED,
+        width * scale,
+        height * scale,
+        SDL_WINDOW_SHOWN
+    );
+    if (!window) {
+        handleSdlError("SDL_CreateWindow");
+    }
+    const auto renderer = SDL_CreateRenderer(
+        window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
+    );
+    if (!renderer) {
+        handleSdlError("SDL_CreateRenderer");
+    }
+    if (SDL_RenderSetLogicalSize(renderer, width, height) != 0) {
+        handleSdlError("SDL_RenderSetLogicalSize");
+    }
+    const auto texture = makeSdlTexture(renderer, width, height);
+    return SdlWindow{
+        .window = window,
+        .renderer = renderer,
+        .texture = texture,
+        .width = width,
+        .height = height,
+    };
+}
+
 void destroyWindow(SdlWindow window) {
     for (auto texture : s_textures) {
         SDL_DestroyTexture(texture);
