@@ -8,7 +8,11 @@ int main(int, char**) {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         handleSdlError("SDL_Init");
     }
-    const auto window = makeDesktopWindow(320, 240, 5, "Example");
+    auto WIDTH = 320;
+    auto HEIGHT = 240;
+    auto SCALE = 5;
+    auto TITLE = "Iglo Example";
+    const auto window = makeDesktopWindow(WIDTH, HEIGHT, SCALE, TITLE);
     for (;;) {
         registerFrameInput(window.renderer);
         if (hasReceivedQuitEvent()) {
