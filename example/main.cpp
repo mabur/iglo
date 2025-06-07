@@ -8,7 +8,7 @@ int main(int, char**) {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         handleSdlError("SDL_Init");
     }
-    const auto window = makeFullScreenWindow(320, 200, "Example");
+    const auto window = makeDesktopWindow(320, 240, 5, "Example");
     for (;;) {
         registerFrameInput(window.renderer);
         if (hasReceivedQuitEvent()) {
