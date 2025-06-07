@@ -34,13 +34,7 @@ int main(int, char**) {
     auto pixels = generateExamplePixels(WIDTH, HEIGHT);
     for (;;) {
         registerFrameInput(window.renderer);
-        if (hasReceivedQuitEvent()) {
-            break;
-        }
-        if (isKeyClicked(SDL_SCANCODE_ESCAPE)) {
-            break;
-        }
-        if (isLeftMouseButtonClicked()) {
+        if (hasReceivedQuitEvent() || isKeyClicked(SDL_SCANCODE_ESCAPE)) {
             break;
         }
         drawPixels(window, pixels);
