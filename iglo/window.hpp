@@ -9,13 +9,13 @@ struct SDL_Rect;
 
 void handleSdlError(const char* context);
 
-struct SdlWindow {
+typedef struct SdlWindow {
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Texture* texture;
     int width;
     int height;
-};
+} SdlWindow;
 
 SdlWindow makeFullScreenWindow(int width, int height, const char* window_title);
 SdlWindow makeDesktopWindow(int width, int height, int scale, const char* window_title);
@@ -23,12 +23,12 @@ void destroyWindow(SdlWindow window);
 void presentWindow(SdlWindow window);
 void drawPixels(SdlWindow window, const uint32_t* pixels_argb);
 
-struct SdlTexture {
+typedef struct SdlTexture {
     int width;
     int height;
     SDL_Renderer* renderer;
     SDL_Texture* texture;
-};
+} SdlTexture;
 
 SdlTexture readTextureFromPpm(SdlWindow window, const char* file_path);
 void drawTexture(SdlTexture texture);
