@@ -1,6 +1,6 @@
 #include "input.hpp"
 
-#include <cassert>
+#include <assert.h>
 
 #include <SDL2/SDL.h>
 
