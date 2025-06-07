@@ -8,6 +8,20 @@ Uint32 packColorArgb(Uint32 a, Uint32 r, Uint32 g, Uint32 b) {
     return (a << 24) | (r << 16) | (g << 8) | (b << 0);
 }
 
+uint32_t* generateExamplePixels(int width, int height) {
+    auto pixels = (uint32_t*)malloc(width * height * sizeof(uint32_t));
+    for (auto y = 0; y < height; ++y) {
+        for (auto x = 0; x < width; ++x) {
+            auto alpha = 255;
+            auto red = 255;
+            auto green = y * 255 / height;
+            auto blue = x * 255 / width;
+            pixels[y * width + x] = packColorArgb(alpha, red, green, blue);
+        }
+    }
+    return pixels;
+}
+
 int main(int, char**) {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         handleSdlError("SDL_Init");
@@ -17,7 +31,7 @@ int main(int, char**) {
     auto SCALE = 5;
     auto TITLE = "Iglo Example";
     auto window = makeDesktopWindow(WIDTH, HEIGHT, SCALE, TITLE);
-    auto pixels = (uint32_t*)malloc(WIDTH * HEIGHT * sizeof(uint32_t));
+    auto pixels = generateExamplePixels(WIDTH, HEIGHT);
     for (;;) {
         registerFrameInput(window.renderer);
         if (hasReceivedQuitEvent()) {
@@ -28,15 +42,6 @@ int main(int, char**) {
         }
         if (isLeftMouseButtonClicked()) {
             break;
-        }
-        for (auto y = 0; y < HEIGHT; ++y) {
-            for (auto x = 0; x < WIDTH; ++x) {
-                auto alpha = 255;
-                auto red = 255;
-                auto green = y * 255 / HEIGHT;
-                auto blue = x * 255 / WIDTH;
-                pixels[y * WIDTH + x] = packColorArgb(alpha, red, green, blue);
-            }
         }
         drawPixels(window, pixels);
         presentWindow(window);
